@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
+    <ProjectReference Include="..\MessageClient\MessageClient.csproj" />
     <ProjectReference Include="..\SearchService\SearchService.csproj" />
     <ProjectReference Include="..\UserService\UserService.csproj" />
   </ItemGroup>

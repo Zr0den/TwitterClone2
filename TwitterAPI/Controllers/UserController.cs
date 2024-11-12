@@ -1,6 +1,8 @@
 ﻿using Database.Entities;
 using Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata;
+using SearchService;
 using TwitterAPI.Messaging;
 using UserProfileService;
 
@@ -12,10 +14,12 @@ namespace TwitterAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
+        private readonly SearchingService _searchService;
 
-        public UserController(UserService userService)
+        public UserController(UserService userService, SearchingService searchService)
         {
             _userService = userService;
+            _searchService = searchService;
         }
         [HttpPost]
         public async Task<ActionResult<UserProfileDto>> CreateUser(UserCreateDto userDto)
@@ -40,12 +44,12 @@ namespace TwitterAPI.Controllers
                 Email = user.Email
             };
 
-            return CreatedAtAction(nameof(_userService.GetUserByIdAsync), new { id = result.Id }, result);
+            return CreatedAtAction(nameof(_searchService.GetUserByIdAsync), new { id = result.Id }, result);
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, UserUpdateDto userDto)
         {
-            var user = await _userService.GetUserByIdAsync(id);
+            var user = await _searchService.GetUserByIdAsync(id);
             if (user == null)
                 return NotFound();
 
@@ -61,7 +65,7 @@ namespace TwitterAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserProfileDto>> GetUserById(int id)
         {
-            var user = await _userService.GetUserByIdAsync(id);
+            var user = await _searchService.GetUserByIdAsync(id);
             if (user == null)
                 return NotFound();
 
@@ -79,7 +83,7 @@ namespace TwitterAPI.Controllers
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<UserProfileDto>>> SearchUsers(string query)
         {
-            var users = await _userService.SearchAsync(query);
+            var users = await _searchService.SearchAsync(query);
 
             var result = users.Select(user => new UserProfileDto
             {

@@ -1,7 +1,9 @@
 ﻿using Database.Entities;
 using Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Moq;
+using SearchService;
 using System.Threading.Tasks;
 using TwitterAPI.Controllers;
 using UserProfileService;
@@ -12,12 +14,14 @@ namespace Test
     public class UserControllerTests
     {
         private readonly Mock<UserService> _userServiceMock;
+        private readonly Mock<SearchingService> _searchServiceMock;
         private readonly UserController _controller;
 
         public UserControllerTests()
         {
             _userServiceMock = new Mock<UserService>();
-            _controller = new UserController(_userServiceMock.Object);
+            _searchServiceMock = new Mock<SearchingService>();
+            _controller = new UserController(_userServiceMock.Object, _searchServiceMock.Object);
         }
 
         [Fact]
@@ -52,7 +56,7 @@ namespace Test
                 new User { Id = 2, Name = "Bobby Jr", UserTag = "Bob", Email = "Bobjr@example.com" }
             };
 
-            _userServiceMock.Setup(s => s.SearchAsync(query)).ReturnsAsync(users);
+            _searchServiceMock.Setup(s => s.SearchAsync(query)).ReturnsAsync(users);
 
             // Act
             var result = await _controller.SearchUsers(query);

@@ -3,6 +3,7 @@ using Database.Repositories;
 using Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using SearchService;
 using System.Threading.Tasks;
 using UserProfileService;
 using Xunit;
@@ -13,11 +14,13 @@ namespace Test
     {
         private readonly Mock<IUserRepository> _userRepositoryMock;
         private readonly UserService _userService;
+        private readonly SearchingService _searchService;
 
         public UserServiceTests()
         {
             _userRepositoryMock = new Mock<IUserRepository>();
             _userService = new UserService(_userRepositoryMock.Object);
+            _searchService = new SearchingService(_userRepositoryMock.Object);
         }
 
         [Fact]
@@ -31,7 +34,7 @@ namespace Test
                 .ReturnsAsync(expectedUser);
 
             // Act
-            var user = await _userService.GetUserByIdAsync(id);
+            var user = await _searchService.GetUserByIdAsync(id);
 
             // Assert
             Assert.NotNull(user);
@@ -48,7 +51,7 @@ namespace Test
                 .ReturnsAsync((User)null);
 
             // Act
-            var user = await _userService.GetUserByIdAsync(userId);
+            var user = await _searchService.GetUserByIdAsync(userId);
 
             // Assert
             Assert.Null(user);

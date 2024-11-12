@@ -9,6 +9,11 @@ services:
     build:
       context: .
       dockerfile: UserService/Dockerfile
+  searchservice:
+    image: ${DOCKER_REGISTRY-}searchservice
+    build:
+      context: .
+      dockerfile: SearchService/Dockerfile
   twitterapi:
     image: ${DOCKER_REGISTRY-}userapi
     build:

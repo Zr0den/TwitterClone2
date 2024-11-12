@@ -29,5 +29,7 @@
         public string Name { get; set; }
         public string UserTag { get; set; }
         public string Email { get; set; }
+        public string Query { get; set; }
+        public List<UserDto> UserProfiles { get; set; } 
     }
 }

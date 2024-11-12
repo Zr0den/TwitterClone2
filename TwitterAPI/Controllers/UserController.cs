@@ -9,26 +9,26 @@ using UserProfileService;
 
 namespace TwitterAPI.Controllers
 {
-    internal static class MessageWaiter
-    {
-        public static async Task<T?>? WaitForMessage<T>(MessageClient<T> messageClient, string clientId, int timeout = 5000)
-        {
-            var tcs = new TaskCompletionSource<T?>();
-            var cancellationTokenSource = new CancellationTokenSource(timeout);
-            cancellationTokenSource.Token.Register(() => tcs.TrySetResult(default));
+    //internal static class MessageWaiter
+    //{
+    //    public static async Task<T?>? WaitForMessage<T>(MessageClient<T> messageClient, string clientId, int timeout = 5000)
+    //    {
+    //        var tcs = new TaskCompletionSource<T?>();
+    //        var cancellationTokenSource = new CancellationTokenSource(timeout);
+    //        cancellationTokenSource.Token.Register(() => tcs.TrySetResult(default));
 
-            using (
-                var connection = messageClient.ListenUsingTopic<T>(message =>
-                {
-                    tcs.TrySetResult(message);
-                }, "User" + clientId, clientId)
-            )
-            {
-            }
+    //        using (
+    //            var connection = messageClient.ListenUsingTopic<T>(message =>
+    //            {
+    //                tcs.TrySetResult(message);
+    //            }, "User" + clientId, clientId)
+    //        )
+    //        {
+    //        }
 
-            return await tcs.Task;
-        }
-    }
+    //        return await tcs.Task;
+    //    }
+    //}
 
     [Route("api/[controller]")]
     [ApiController]
@@ -64,9 +64,9 @@ namespace TwitterAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, UserUpdateDto userDto)
+        public IActionResult UpdateUser(int id, UserUpdateDto userDto)
         {
-            var user = await _searchService.GetUserByIdAsync(id);
+            var user = _searchService.GetUserById(id);
             if (user == null)
                 return NotFound();
 
@@ -74,15 +74,15 @@ namespace TwitterAPI.Controllers
             user.UserTag = userDto.UserTag;
             user.Email = userDto.Email;
 
-            await _userService.UpdateUserAsync(user);
+             _userService.UpdateUser(user);
 
             return NoContent();
         }
         // Get a user profile by ID
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserProfileDto>> GetUserById(int id)
+        public ActionResult<UserProfileDto> GetUserById(int id)
         {
-            var user = await _searchService.GetUserByIdAsync(id);
+            var user = _searchService.GetUserById(id);
             if (user == null)
                 return NotFound();
 
@@ -98,19 +98,17 @@ namespace TwitterAPI.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<UserProfileDto>>> SearchUsers(string query)
+        public async Task<ActionResult<IEnumerable<UserDto>>> SearchUsers(string query)
         {
-            var users = await _searchService.SearchAsync(query);
-
-            var result = users.Select(user => new UserProfileDto
+            _getUserMessage.SendUsingTopic(new UserProfileDto
             {
-                Id = user.Id,
-                Name = user.Name,
-                UserTag = user.UserTag,
-                Email = user.Email
-            }).ToList();
+                Query = query
+            }, "getUsers");
 
-            return Ok(result);
+
+            var response = await MessageWaiter.WaitForMessage(_getUserMessage, query)!;
+
+            return response != null ? response.UserProfiles : new List<UserDto>();
         }
 
     }

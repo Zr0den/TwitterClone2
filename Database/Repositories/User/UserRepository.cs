@@ -13,11 +13,11 @@ namespace Database.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<User>> SearchAsync(string query)
+        public IEnumerable<User> Search(string query)
         {
-            return await _context.Users
+            return _context.Users
                 .Where(u => u.Name.Contains(query) || u.UserTag.Contains(query))
-                .ToListAsync();
+                .ToList();
         }
     }
 }

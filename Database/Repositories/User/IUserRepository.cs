@@ -5,6 +5,6 @@ namespace Database.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
-        Task<IEnumerable<User>> SearchAsync(string query);
+        IEnumerable<User> Search(string query);
     }
 }

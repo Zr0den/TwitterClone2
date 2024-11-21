@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchService", "SearchService\SearchService.csproj", "{9CF4E48E-B6D5-4F77-9D49-B8F2214B3CF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageClient", "MessageClient\MessageClient.csproj", "{0AE2DC48-4945-4907-8887-DEAED26F9C41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageClient", "MessageClient\MessageClient.csproj", "{0AE2DC48-4945-4907-8887-DEAED26F9C41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{84490EBE-F6E9-42D1-A9FC-F7DC4497AE78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{0AE2DC48-4945-4907-8887-DEAED26F9C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AE2DC48-4945-4907-8887-DEAED26F9C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AE2DC48-4945-4907-8887-DEAED26F9C41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84490EBE-F6E9-42D1-A9FC-F7DC4497AE78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84490EBE-F6E9-42D1-A9FC-F7DC4497AE78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84490EBE-F6E9-42D1-A9FC-F7DC4497AE78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84490EBE-F6E9-42D1-A9FC-F7DC4497AE78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

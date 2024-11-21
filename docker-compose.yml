@@ -1,24 +1,47 @@
 services:
+  apigateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+    ports:
+     - "8080:80"
   tweetservice:
     image: ${DOCKER_REGISTRY-}tweetservice
     build:
       context: .
       dockerfile: TweetService/Dockerfile
+    depends_on:
+     - apigateway
+    ports:
+    - "8081:80"
   userservice:
     image: ${DOCKER_REGISTRY-}userservice
     build:
       context: .
       dockerfile: UserService/Dockerfile
+    depends_on:
+     - apigateway
+    ports:
+    - "8082:80"
   searchservice:
     image: ${DOCKER_REGISTRY-}searchservice
     build:
       context: .
       dockerfile: SearchService/Dockerfile
+    depends_on:
+     - apigateway
+    ports:
+    - "8083:80"
   twitterapi:
     image: ${DOCKER_REGISTRY-}userapi
     build:
       context: .
       dockerfile: TwitterAPI/Dockerfile
+    depends_on:
+     - apigateway
+    ports:
+    - "8084:80"
   mssql:
      image: mcr.microsoft.com/mssql/server:2022-latest
      ports:

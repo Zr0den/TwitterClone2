@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Database.Repositories;
+using Polly.Extensions.Http;
+using Polly;
 
 class Program
 {
@@ -12,6 +14,7 @@ class Program
             .SetBasePath(AppContext.BaseDirectory) // Set the base path to the app's directory
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
+
 
         // Set up dependency injection
         var serviceCollection = new ServiceCollection();
@@ -25,6 +28,7 @@ class Program
         {
             // Perform database operations here
         }
+
     }
 
     private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)

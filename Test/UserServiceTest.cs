@@ -24,7 +24,7 @@ namespace Test
             _userRepositoryMock = new Mock<IUserRepository>();
             _newUserClientMock = new Mock<MessageClient<UserCreateDto>>();
             _userProfileClientMock = new Mock<MessageClient<UserProfileDto>>();
-            _userService = new UserService(_userRepositoryMock.Object, _newUserClientMock.Object);
+            _userService = new UserService(_userRepositoryMock.Object, _newUserClientMock.Object, _userProfileClientMock.Object);
             _searchService = new SearchingService(_userProfileClientMock.Object);
         }
 

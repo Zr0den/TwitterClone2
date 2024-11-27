@@ -22,7 +22,7 @@ namespace SearchService
 
         public void Start()
         {
-            Action<string> callback = Search;
+            Action<IEnumerable<UserDto>> callback = Search;
             _userProfileClient.Connect();
             _userProfileClient.ListenUsingTopic(callback, "", "getUsers");
 

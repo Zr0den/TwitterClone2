@@ -19,11 +19,11 @@
     {
       "UpstreamPathTemplate": "/auth",
         "UpstreamHttpMethod": [ "Post" ],
-        "DownstreamPathTemplate": "/authentication",
+        "DownstreamPathTemplate": "/authservice",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "authentication",
+          "Host": "authservice",
           "Port": 80
         }
       ]

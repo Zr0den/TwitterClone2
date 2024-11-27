@@ -47,7 +47,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseOcelot().Wait();
 app.UseAuthorization();
-app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

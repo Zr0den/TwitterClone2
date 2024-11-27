@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Authentication.Services
+namespace AuthService.Services
 {
     public class JwtTokenService
     {
@@ -24,7 +24,7 @@ namespace Authentication.Services
             var tokenOptions = new JwtSecurityToken(signingCredentials: signingCredentials, claims: claims);
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-            var authToken = new AuthenticationToken 
+            var authToken = new AuthenticationToken
             {
                 Value = tokenString
             };

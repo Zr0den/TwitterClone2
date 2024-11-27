@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication", "TwitterClone\Authentication.csproj", "{18D36C31-3269-44D4-9B59-5A5E2A4EA445}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitterAPI", "TwitterAPI\TwitterAPI.csproj", "{27463CD0-81B3-42FB-82FF-701A3031B523}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetService", "TweetService\TweetService.csproj", "{A1130E79-4A2F-4DFC-BE85-8492DE011B12}"
@@ -23,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchService", "SearchServ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageClient", "MessageClient\MessageClient.csproj", "{0AE2DC48-4945-4907-8887-DEAED26F9C41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{84490EBE-F6E9-42D1-A9FC-F7DC4497AE78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{84490EBE-F6E9-42D1-A9FC-F7DC4497AE78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService", "AuthService\AuthService.csproj", "{CE70AB39-2DFE-4E59-B600-A7890A64EAC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{18D36C31-3269-44D4-9B59-5A5E2A4EA445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{18D36C31-3269-44D4-9B59-5A5E2A4EA445}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{18D36C31-3269-44D4-9B59-5A5E2A4EA445}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{18D36C31-3269-44D4-9B59-5A5E2A4EA445}.Release|Any CPU.Build.0 = Release|Any CPU
 		{27463CD0-81B3-42FB-82FF-701A3031B523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{27463CD0-81B3-42FB-82FF-701A3031B523}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27463CD0-81B3-42FB-82FF-701A3031B523}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,6 +71,10 @@ Global
 		{84490EBE-F6E9-42D1-A9FC-F7DC4497AE78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84490EBE-F6E9-42D1-A9FC-F7DC4497AE78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84490EBE-F6E9-42D1-A9FC-F7DC4497AE78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE70AB39-2DFE-4E59-B600-A7890A64EAC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE70AB39-2DFE-4E59-B600-A7890A64EAC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE70AB39-2DFE-4E59-B600-A7890A64EAC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE70AB39-2DFE-4E59-B600-A7890A64EAC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

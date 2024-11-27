@@ -1,7 +1,7 @@
-using Authentication.Services;
+using AuthService.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace TwitterClone.Controllers
+namespace AuthService.Controllers
 {
     [ApiController]
     [Route("[controller]")]

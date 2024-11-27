@@ -42,11 +42,11 @@ services:
     - "8084:80"
     depends_on:
      - apigateway
-  authentication:
-    image: authentication
+  authservice:
+    image: authservice
     build: 
       context: .
-      dockerfile: Authentication/Dockerfile
+      dockerfile: AuthService/Dockerfile
     ports:
      - "8085:80"
   mssql:

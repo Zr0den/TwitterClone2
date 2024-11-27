@@ -8,7 +8,23 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "twitterapi",
-          "Port":  80
+          "Port": 80
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "bearer",
+        "AllowedScopes": ["twitterapi.read"]
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/auth",
+        "UpstreamHttpMethod": [ "Post" ],
+        "DownstreamPathTemplate": "/authentication",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "authentication",
+          "Port": 80
         }
       ]
     }

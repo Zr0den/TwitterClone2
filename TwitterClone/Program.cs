@@ -1,3 +1,4 @@
+using Authentication.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TwitterClone.Data;
@@ -17,7 +18,7 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
     .AddEntityFrameworkStores<DataContext>();
 
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddSingleton(new JwtTokenService());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

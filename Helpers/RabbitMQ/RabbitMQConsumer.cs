@@ -83,12 +83,8 @@ namespace Helpers.RabbitMQ
                     return;
                 }
 
-                var client = new RestClient(requestDetails.Url);
-
-                var request = new RestRequest()
-                {
-                    Method = requestDetails.Method
-                };
+                var client = new RestClient();
+                var request = new RestRequest(requestDetails.Url, requestDetails.Method);
 
                 if (requestDetails.Headers != null)
                 {
@@ -106,33 +102,18 @@ namespace Helpers.RabbitMQ
                 var response = await client.ExecuteAsync(request);
 
                 Console.WriteLine($"[Consumer] Response: {response.StatusCode} - {response.Content}");
+
+                if (response.IsSuccessful && !string.IsNullOrEmpty(requestDetails.ReplyToQueue))
+                {
+                    var responseBody = response.Content ?? string.Empty;
+                    await PublishAsync(responseBody, requestDetails.ReplyToQueue);
+                }
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"[Consumer] Error processing request: {ex.Message}");
             }
-        }
-
-        public async Task ProcessRequestAsync(string requestJson)
-        {
-            var factory = new ConnectionFactory
-            {
-                HostName = _settings.HostName,
-                UserName = _settings.UserName,
-                Password = _settings.Password
-            };
-
-            var requestDetails = JsonSerializer.Deserialize<RequestDetails>(requestJson);
-            if (requestDetails == null || string.IsNullOrEmpty(requestDetails.ReplyToQueue)) return;
-
-            //TODO Fetch the data (simulate REST API call here)
-            var patientData = "[{\"id\":1,\"name\":\"John Doe\"}]"; // Example response
-
-            await using var connection = await factory.CreateConnectionAsync();
-            await using var channel = await connection.CreateChannelAsync();
-
-            await channel.QueueDeclareAsync(requestDetails.ReplyToQueue, durable: true, exclusive: false, autoDelete: false);
-            await channel.BasicPublishAsync(exchange: "", routingKey: requestDetails.ReplyToQueue, mandatory: false, body: Encoding.UTF8.GetBytes(patientData));
         }
 
         public async Task<string> WaitForResponseAsync(string queueName)
@@ -171,6 +152,38 @@ namespace Helpers.RabbitMQ
             {
                 throw new TimeoutException("No response received within the timeout period.");
             }
+        }
+
+        private async Task PublishAsync(string message, string queueName)
+        {
+            var factory = new ConnectionFactory
+            {
+                HostName = _settings.HostName,
+                UserName = _settings.UserName,
+                Password = _settings.Password
+            };
+
+            await using var connection = await factory.CreateConnectionAsync();
+            await using var channel = await connection.CreateChannelAsync();
+
+            await channel.QueueDeclareAsync(
+            queue: _settings.QueueName,
+            durable: true,
+            exclusive: false,
+            autoDelete: false,
+            arguments: null);
+
+            var json = JsonSerializer.Serialize(message);
+            var body = Encoding.UTF8.GetBytes(json);
+
+            await channel.QueueDeclareAsync(queueName, durable: true, exclusive: false, autoDelete: false);
+            await channel.BasicPublishAsync(
+                exchange: "",
+                routingKey: _settings.QueueName,
+                mandatory: false,
+                body: body);
+
+            Console.WriteLine($"[Producer] Sent: {message}");
         }
     }
 

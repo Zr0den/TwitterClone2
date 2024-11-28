@@ -30,6 +30,7 @@ builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("R
 
 // Register RabbitMQProducer and RabbitMQConsumer
 builder.Services.AddSingleton<RabbitMQProducer>();
+builder.Services.AddSingleton<RabbitMQConsumer>();
 builder.Services.AddHostedService<RabbitMQConsumerHostedService>(); // Background service to run RabbitMQConsumer
 
 

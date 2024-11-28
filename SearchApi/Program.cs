@@ -27,9 +27,9 @@ builder.Services.AddHttpClient("ExternalServiceClient")
 // Add services to the container.
 // Add RabbitMQ settings from appsettings.json
 builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQ"));
-
 // Register RabbitMQProducer and RabbitMQConsumer
 builder.Services.AddSingleton<RabbitMQProducer>();
+builder.Services.AddSingleton<RabbitMQConsumer>(); 
 builder.Services.AddHostedService<RabbitMQConsumerHostedService>(); // Background service to run RabbitMQConsumer
 
 builder.Services.AddControllers();

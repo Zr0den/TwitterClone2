@@ -1,4 +1,6 @@
-﻿using Helpers.RabbitMQ;
+﻿using Database.Repositories;
+using Helpers;
+using Helpers.RabbitMQ;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,16 +12,22 @@ namespace UserApi.Controllers
     {
         private readonly RabbitMQProducer _producer;
         private UserService _service;
-        public UserController(RabbitMQProducer producer, UserService service)
+        private IUserRepository _userRepository;
+
+        public UserController(RabbitMQProducer producer, UserService service, IUserRepository userRepository)
         {
             _producer = producer;
             _service = service;
+            _userRepository = userRepository;
         }
 
-        [HttpPost("process")]
-        public IActionResult ProcessRequest([FromBody] RequestDetails requestDetails)
+        [HttpGet("search")]
+        public IActionResult SearchUsers([FromQuery] string query)
         {
-            return Ok($"TEST Processed {requestDetails.Method} request for {requestDetails.Url}");
+            var users = _userRepository.GetAll();
+
+            var filteredUsers = users.Where(u => u.Name.Contains(query, StringComparison.OrdinalIgnoreCase)).ToList();
+            return Ok(filteredUsers);
         }
     }
 }

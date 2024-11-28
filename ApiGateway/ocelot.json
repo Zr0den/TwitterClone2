@@ -1,25 +1,60 @@
 {
   "Routes": [
     {
-      "UpstreamPathTemplate": "/twitterapi",
+      "UpstreamPathTemplate": "/user",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
-      "DownstreamPathTemplate": "/twitterapi",
+      "DownstreamPathTemplate": "/userapi",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "twitterapi",
+          "Host": "userapi",
           "Port": 80
         }
       ],
+      "Key": "user",
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "bearer",
-        "AllowedScopes": ["twitterapi.read"]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "userapi.read" ]
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/tweet",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "DownstreamPathTemplate": "/tweetapi",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tweetapi",
+          "Port": 80
+        }
+      ],
+      "Key": "tweet",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "tweetapi.read" ]
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/search",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "DownstreamPathTemplate": "/searchapi",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "searchapi",
+          "Port": 80
+        }
+      ],
+      "Key": "search",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "searchapi.read" ]
       }
     },
     {
       "UpstreamPathTemplate": "/auth",
-        "UpstreamHttpMethod": [ "Post" ],
-        "DownstreamPathTemplate": "/authservice",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/authservice",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -27,6 +62,12 @@
           "Port": 80
         }
       ]
+    }
+  ],
+  "Aggregates": [
+    {
+      "UpstreamPathTemplate": "/test",
+      "RouteKeys": [ "user", "tweet", "search" ]
     }
   ]
 }

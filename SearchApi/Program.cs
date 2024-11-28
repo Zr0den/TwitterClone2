@@ -1,3 +1,4 @@
+using Helpers.RabbitMQ;
 using Polly;
 using Polly.Extensions.Http;
 
@@ -24,6 +25,12 @@ builder.Services.AddHttpClient("ExternalServiceClient")
         .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))))
     .AddPolicyHandler(circuitBreakerPolicy);
 // Add services to the container.
+// Add RabbitMQ settings from appsettings.json
+builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQ"));
+
+// Register RabbitMQProducer and RabbitMQConsumer
+builder.Services.AddSingleton<RabbitMQProducer>();
+builder.Services.AddHostedService<RabbitMQConsumerHostedService>(); // Background service to run RabbitMQConsumer
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -5,7 +5,6 @@ using MessageClient;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Threading.Tasks;
-using UserProfileService;
 using Xunit;
 
 namespace Test

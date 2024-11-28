@@ -55,7 +55,6 @@ builder.Services.AddAuthentication(options =>
         };
     }
 );
-builder.Services.AddHttpClient<Service>("ExternalServiceClient");
 builder.Services.AddOcelot(builder.Configuration);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

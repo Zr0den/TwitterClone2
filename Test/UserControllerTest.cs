@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Moq;
 using System.Threading.Tasks;
-using UserProfileService;
 using Xunit;
 
 namespace Test

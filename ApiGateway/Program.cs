@@ -15,26 +15,26 @@ const string SecurityKey = "mMdAhocQbIAa1/4iD8W5BiDCD9Lxg9ULp4qROgJVN8oRZommyAsn
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("ocelot.json", false, false);
 
-var circuitBreakerPolicy = Policy<HttpResponseMessage>
-    .Handle<HttpRequestException>()
-    .OrResult(response => (int)response.StatusCode >= 500)
-    .CircuitBreakerAsync(
-        handledEventsAllowedBeforeBreaking: 3,
-        durationOfBreak: TimeSpan.FromSeconds(30),
-        onBreak: (outcome, timespan) =>
-        {
-            Console.WriteLine($"Circuit breaker opened due to: {outcome.Exception?.Message ?? outcome.Result?.ReasonPhrase}");
-            Console.WriteLine($"Circuit will remain open for {timespan.TotalSeconds} seconds.");
-        },
-        onReset: () => Console.WriteLine("Circuit breaker reset. Normal operation resumed."),
-        onHalfOpen: () => Console.WriteLine("Circuit breaker is half-open. Testing next request.")
-    );
+//var circuitBreakerPolicy = Policy<HttpResponseMessage>
+//    .Handle<HttpRequestException>()
+//    .OrResult(response => (int)response.StatusCode >= 500)
+//    .CircuitBreakerAsync(
+//        handledEventsAllowedBeforeBreaking: 3,
+//        durationOfBreak: TimeSpan.FromSeconds(30),
+//        onBreak: (outcome, timespan) =>
+//        {
+//            Console.WriteLine($"Circuit breaker opened due to: {outcome.Exception?.Message ?? outcome.Result?.ReasonPhrase}");
+//            Console.WriteLine($"Circuit will remain open for {timespan.TotalSeconds} seconds.");
+//        },
+//        onReset: () => Console.WriteLine("Circuit breaker reset. Normal operation resumed."),
+//        onHalfOpen: () => Console.WriteLine("Circuit breaker is half-open. Testing next request.")
+//    );
 
-// Register HttpClient with Polly policies
-builder.Services.AddHttpClient("ExternalServiceClient")
-    .AddPolicyHandler(HttpPolicyExtensions.HandleTransientHttpError() // Retry for transient errors
-        .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))))
-    .AddPolicyHandler(circuitBreakerPolicy);
+//// Register HttpClient with Polly policies
+//builder.Services.AddHttpClient("ExternalServiceClient")
+//    .AddPolicyHandler(HttpPolicyExtensions.HandleTransientHttpError() // Retry for transient errors
+//        .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))))
+//    .AddPolicyHandler(circuitBreakerPolicy);
 
 // Add services to the container.
 builder.Services.AddAuthentication(options =>

@@ -125,7 +125,7 @@ namespace Helpers.RabbitMQ
             var requestDetails = JsonSerializer.Deserialize<RequestDetails>(requestJson);
             if (requestDetails == null || string.IsNullOrEmpty(requestDetails.ReplyToQueue)) return;
 
-            //TODO Fetch the patient data (simulate REST API call here)
+            //TODO Fetch the data (simulate REST API call here)
             var patientData = "[{\"id\":1,\"name\":\"John Doe\"}]"; // Example response
 
             await using var connection = await factory.CreateConnectionAsync();

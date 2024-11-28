@@ -6,42 +6,42 @@ services:
       dockerfile: ApiGateway/Dockerfile
     ports:
      - "8080:80"
-  tweetservice:
-    image: ${DOCKER_REGISTRY-}tweetservice
+  tweetapi:
+    image: ${DOCKER_REGISTRY-}tweetapi
     build:
       context: .
-      dockerfile: TweetService/Dockerfile
+      dockerfile: TweetApi/Dockerfile
     ports:
     - "8081:80"
     depends_on:
      - apigateway
-  userservice:
-    image: ${DOCKER_REGISTRY-}userservice
+  userapi:
+    image: ${DOCKER_REGISTRY-}userapi
     build:
       context: .
-      dockerfile: UserService/Dockerfile
+      dockerfile: UserApi/Dockerfile
     ports:
     - "8082:80"
     depends_on:
      - apigateway
-  searchservice:
-    image: ${DOCKER_REGISTRY-}searchservice
+  searchapi:
+    image: ${DOCKER_REGISTRY-}searchapi
     build:
       context: .
-      dockerfile: SearchService/Dockerfile
+      dockerfile: SearchApi/Dockerfile
     ports:
     - "8083:80"
     depends_on:
      - apigateway
-  twitterapi:
-    image: ${DOCKER_REGISTRY-}userapi
-    build:
-      context: .
-      dockerfile: TwitterAPI/Dockerfile
-    ports:
-    - "8084:80"
-    depends_on:
-     - apigateway
+  # twitterapi:
+  #   image: ${DOCKER_REGISTRY-}userapi
+  #   build:
+  #     context: .
+  #     dockerfile: TwitterAPI/Dockerfile
+  #   ports:
+  #   - "8084:80"
+  #   depends_on:
+  #    - apigateway
   authservice:
     image: authservice
     build: 

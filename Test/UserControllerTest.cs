@@ -4,9 +4,7 @@ using MessageClient;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Moq;
-using SearchService;
 using System.Threading.Tasks;
-using TwitterAPI.Controllers;
 using UserProfileService;
 using Xunit;
 
@@ -14,20 +12,20 @@ namespace Test
 {
     public class UserControllerTests
     {
-        private readonly Mock<UserService> _userServiceMock;
-        private readonly Mock<SearchingService> _searchServiceMock;
-        private readonly Mock<MessageClient<UserCreateDto>> _createUserMessageMock;
-        private readonly Mock<MessageClient<UserProfileDto>> _getUserMessageMock;
-        private readonly UserController _controller;
+        //private readonly Mock<UserService> _userServiceMock;
+        //private readonly Mock<SearchingService> _searchServiceMock;
+        //private readonly Mock<MessageClient<UserCreateDto>> _createUserMessageMock;
+        //private readonly Mock<MessageClient<UserProfileDto>> _getUserMessageMock;
+        //private readonly UserController _controller;
 
-        public UserControllerTests()
-        {
-            _userServiceMock = new Mock<UserService>();
-            _searchServiceMock = new Mock<SearchingService>();
-            _createUserMessageMock = new Mock<MessageClient<UserCreateDto>>();
-            _getUserMessageMock = new Mock<MessageClient<UserProfileDto>>();
-            _controller = new UserController(_userServiceMock.Object, _searchServiceMock.Object, _createUserMessageMock.Object, _getUserMessageMock.Object);
-        }
+        //public UserControllerTests()
+        //{
+        //    _userServiceMock = new Mock<UserService>();
+        //    _searchServiceMock = new Mock<SearchingService>();
+        //    _createUserMessageMock = new Mock<MessageClient<UserCreateDto>>();
+        //    _getUserMessageMock = new Mock<MessageClient<UserProfileDto>>();
+        //    _controller = new UserController(_userServiceMock.Object, _searchServiceMock.Object, _createUserMessageMock.Object, _getUserMessageMock.Object);
+        //}
 
         //[Fact]
         //public void SearchUsersFindsListTest()

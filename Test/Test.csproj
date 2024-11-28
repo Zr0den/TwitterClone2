@@ -23,8 +23,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Database\Database.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
-    <ProjectReference Include="..\TweetService\TweetService.csproj" />
-    <ProjectReference Include="..\TwitterAPI\TwitterAPI.csproj" />
     <ProjectReference Include="..\TwitterClone\Authentication.csproj" />
     <ProjectReference Include="..\UserService\UserService.csproj" />
   </ItemGroup>

@@ -12,5 +12,6 @@ namespace Helpers.RabbitMQ
         public string UserName { get; set; }
         public string Password { get; set; }
         public string QueueName { get; set; }
+        public int Port { get; set; }
     }
 }

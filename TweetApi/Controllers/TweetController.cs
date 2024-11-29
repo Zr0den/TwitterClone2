@@ -5,7 +5,7 @@ using RabbitMQ.Client;
 
 namespace TweetApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class TweetController : ControllerBase
     {

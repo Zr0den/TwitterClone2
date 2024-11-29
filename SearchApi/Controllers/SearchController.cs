@@ -7,7 +7,13 @@ using System.Text.Json;
 
 namespace SearchApi.Controllers
 {
-    [Route("api/[controller]")]
+    public class TestResponse
+    {
+        public string Response { get; set; }
+
+    }
+
+    [Route("[controller]")]
     [ApiController]
     public class SearchController : ControllerBase
     {
@@ -20,6 +26,12 @@ namespace SearchApi.Controllers
             _producer = producer;
             _consumer = consumer;
             _service = service;
+        }
+
+        [HttpGet]
+        public TestResponse test() 
+        {
+            return new TestResponse { Response = "test" };
         }
 
         [HttpGet("search-users")]

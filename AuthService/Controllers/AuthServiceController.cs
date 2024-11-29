@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AuthService.Controllers
 {
+    public class TestResponse
+    {
+        public string Response { get; set; }
+
+    }
     [ApiController]
     [Route("[controller]")]
     public class AuthServiceController : ControllerBase
@@ -12,6 +17,12 @@ namespace AuthService.Controllers
         public AuthServiceController(JwtTokenService jwtTokenService)
         {
             _jwtTokenService = jwtTokenService;
+        }
+
+        [HttpGet]
+        public TestResponse test()
+        {
+            return new TestResponse { Response = "test" };
         }
 
         [HttpPost]

@@ -3,7 +3,7 @@
     {
       "UpstreamPathTemplate": "/user",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
-      "DownstreamPathTemplate": "/userapi",
+      "DownstreamPathTemplate": "/user",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -20,7 +20,7 @@
     {
       "UpstreamPathTemplate": "/tweet",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
-      "DownstreamPathTemplate": "/tweetapi",
+      "DownstreamPathTemplate": "/tweet",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -37,7 +37,7 @@
     {
       "UpstreamPathTemplate": "/search",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
-      "DownstreamPathTemplate": "/searchapi",
+      "DownstreamPathTemplate": "/search",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -54,7 +54,7 @@
     {
       "UpstreamPathTemplate": "/auth",
       "UpstreamHttpMethod": [ "Post" ],
-      "DownstreamPathTemplate": "/authservice",
+      "DownstreamPathTemplate": "/auth",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {

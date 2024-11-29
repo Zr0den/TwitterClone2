@@ -22,6 +22,12 @@ namespace SearchApi.Controllers
             _service = service;
         }
 
+        [HttpGet]
+        public TestResponse test() 
+        {
+            return new TestResponse { Response = "test" };
+        }
+
         [HttpGet("search-users")]
         public async Task<IActionResult> SearchUsersAsync([FromQuery] string query)
         {

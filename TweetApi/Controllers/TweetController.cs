@@ -1,6 +1,7 @@
 ﻿using Helpers.RabbitMQ;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RabbitMQ.Client;
 
 namespace TweetApi.Controllers
 {
@@ -12,6 +13,15 @@ namespace TweetApi.Controllers
         public TweetController(RabbitMQProducer producer)
         {
             _producer = producer;
+
+
+            
+        }
+
+        [HttpGet]
+        public string Test()
+        {
+            return "HALLØJSA";
         }
     }
 }

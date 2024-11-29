@@ -30,8 +30,8 @@ namespace Helpers.RabbitMQ
                 Password = _settings.Password
             };
 
-            await using var connection = await factory.CreateConnectionAsync();
-            await using var channel = await connection.CreateChannelAsync();
+            using var connection = await factory.CreateConnectionAsync();
+            using var channel = await connection.CreateChannelAsync();
 
             // Ensure the queue exists
             await channel.QueueDeclareAsync(

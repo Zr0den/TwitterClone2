@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace SearchApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class SearchController : ControllerBase
     {

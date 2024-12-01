@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tweetapi
+  namespace: twitterclone
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tweetapi
+  template:
+    metadata:
+      labels:
+        app: tweetapi
+    spec:
+      containers:
+      - name: tweetapi
+        image: tweetapi:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080

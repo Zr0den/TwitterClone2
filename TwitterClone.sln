@@ -15,11 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "ApiGateway\Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthService", "AuthService\AuthService.csproj", "{CE70AB39-2DFE-4E59-B600-A7890A64EAC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchApi", "SearchApi\SearchApi.csproj", "{77F68960-507F-4944-8E09-787F589E6968}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchApi", "SearchApi\SearchApi.csproj", "{77F68960-507F-4944-8E09-787F589E6968}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserApi", "UserApi\UserApi.csproj", "{8F763C60-DDF5-4B62-8594-4DF1698F3B6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserApi", "UserApi\UserApi.csproj", "{8F763C60-DDF5-4B62-8594-4DF1698F3B6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetApi", "TweetApi\TweetApi.csproj", "{D4415AD0-9C33-4727-83E7-F34BFE3883C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetApi", "TweetApi\TweetApi.csproj", "{D4415AD0-9C33-4727-83E7-F34BFE3883C4}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B57A89BE-6A38-42F5-99AA-548E7AC8E74A}"
 EndProject

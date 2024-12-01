@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: searchapi
+  namespace: twitterclone
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: searchapi
+  template:
+    metadata:
+      labels:
+        app: searchapi
+    spec:
+      containers:
+      - name: searchapi
+        image: searchapi:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080

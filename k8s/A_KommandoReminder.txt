@@ -1,0 +1,21 @@
+ -- Start kubernetes + dashboard: --
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+kubectl create sa webadmin -n kubernetes-dashboard 
+kubectl create clusterrolebinding webadmin --clusterrole=cluster-admin --serviceaccount=kubernetes-dashboard:webadmin
+
+kubectl create token webadmin -n kubernetes-dashboard
+kubectl proxy
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+
+ -- apply --
+kubectl apply -f ./k8s/
+kubectl apply -f k8s/apigateway-deployment.yaml (for enkel)
+
+-- Monitoring --
+kubectl get all -n twitterclone (namespace = twitterclone) 
+kubectl logs -f deployment/searchapi -n twitterclone
+
+
+-- Push images to registry if local images 
+docker tag apigateway:latest krazlo/apigateway:latest (krazlo is my dockerhub username)
+docker push krazlo/apigateway:latest

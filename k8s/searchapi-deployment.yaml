@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: searchapi
-        image: searchapi:latest
+        image: krazlo/searchapi:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 8080

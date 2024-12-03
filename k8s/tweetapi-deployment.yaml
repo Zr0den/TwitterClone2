@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: tweetapi
-        image: tweetapi:latest
+        image: krazlo/tweetapi:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 8080

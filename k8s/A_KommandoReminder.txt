@@ -8,6 +8,7 @@ kubectl proxy
 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
 
  -- apply --
+kubectl create namespace twitterclone
 kubectl apply -f ./k8s/
 kubectl apply -f ./k8s/ --namespace=twitterclone
 kubectl apply -f k8s/apigateway-deployment.yaml (for enkel)
@@ -17,6 +18,7 @@ kubectl get all -n twitterclone
 kubectl logs -f deployment/searchapi -n twitterclone
 kubectl get pods -n twitterclone -o wide
 kubectl get pods -o wide
+kubectl logs <pod-name> -c fluentd -n twitterclone
 
 -- Push images to registry if local images 
 docker tag apigateway:latest krazlo/apigateway:latest (krazlo is my dockerhub username)

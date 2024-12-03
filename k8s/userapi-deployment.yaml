@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: userapi
-        image: userapi:latest
+        image: krazlo/userapi:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 8080

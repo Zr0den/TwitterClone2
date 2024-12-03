@@ -8,14 +8,16 @@ services:
       - "8080:8080"
     networks:
       - appnetwork
+      - default
+    depends_on:
+     rabbitmq:
+      condition: service_healthy
 
   tweetapi:
     image: ${DOCKER_REGISTRY-}tweetapi
     build:
       context: .
       dockerfile: TweetApi/Dockerfile
-    ports:
-      - "8081:8080"
     depends_on:
      rabbitmq:
       condition: service_healthy
@@ -27,8 +29,6 @@ services:
     build:
       context: .
       dockerfile: UserApi/Dockerfile
-    ports:
-      - "8082:8080"
     depends_on:
      rabbitmq:
       condition: service_healthy
@@ -40,8 +40,6 @@ services:
     build:
       context: .
       dockerfile: SearchApi/Dockerfile
-    ports:
-      - "8083:8080"
     depends_on:
      rabbitmq:
       condition: service_healthy
@@ -49,12 +47,10 @@ services:
       - appnetwork
 
   authservice:
-    image: authservice
+    image: auth-service
     build: 
       context: .
       dockerfile: AuthService/Dockerfile
-    ports:
-      - "8085:8080"
     networks:
       - appnetwork
 
@@ -89,4 +85,4 @@ volumes:
 
 networks:
   appnetwork:
-    driver: bridge
+    internal: true

@@ -9,7 +9,7 @@ namespace AuthService.Controllers
 
     }
     [ApiController]
-    [Route("[controller]")]
+    [Route("auth")]
     public class AuthServiceController : ControllerBase
     {
         private readonly JwtTokenService _jwtTokenService;

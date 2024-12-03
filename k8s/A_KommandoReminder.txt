@@ -9,13 +9,22 @@ http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kube
 
  -- apply --
 kubectl apply -f ./k8s/
+kubectl apply -f ./k8s/ --namespace=twitterclone
 kubectl apply -f k8s/apigateway-deployment.yaml (for enkel)
 
 -- Monitoring --
-kubectl get all -n twitterclone (namespace = twitterclone) 
+kubectl get all -n twitterclone
 kubectl logs -f deployment/searchapi -n twitterclone
-
+kubectl get pods -n twitterclone -o wide
+kubectl get pods -o wide
 
 -- Push images to registry if local images 
 docker tag apigateway:latest krazlo/apigateway:latest (krazlo is my dockerhub username)
 docker push krazlo/apigateway:latest
+
+-- Build docker image locally
+docker build -t apigateway:latest -f ApiGateway/Dockerfile .
+docker build -t tweetapi:latest -f TweetApi/Dockerfile .
+docker build -t userapi:latest -f UserApi/Dockerfile .
+docker build -t searchapi:latest -f SearchApi/Dockerfile .
+docker build -t authservice:latest -f AuthService/Dockerfile .

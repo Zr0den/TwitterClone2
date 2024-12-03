@@ -19,3 +19,25 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
+          volumeMounts:
+          - name: logs
+            mountPath: /var/log/app
+        - name: fluentd
+          image: fluent/fluentd:v1.14-1
+          ports:
+          - containerPort: 24224
+          env:
+          - name: FLUENTD_ARGS
+            value: "--no-supervisor -c /fluentd/etc/fluent.conf"
+          volumeMounts:
+          - name: logs
+            mountPath: /var/log/app
+          - name: fluentd-config
+            mountPath: /fluentd/etc
+      volumes:
+      - name: logs
+        emptyDir: {}
+      - name: fluentd-config
+        configMap:
+          name: fluentd-config
+          

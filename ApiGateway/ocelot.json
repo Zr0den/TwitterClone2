@@ -1,9 +1,9 @@
 {
   "Routes": [
     {
-      "UpstreamPathTemplate": "/user",
+      "UpstreamPathTemplate": "/user/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
-      "DownstreamPathTemplate": "/user",
+      "DownstreamPathTemplate": "/user/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -18,9 +18,9 @@
       }
     },
     {
-      "UpstreamPathTemplate": "/tweet",
+      "UpstreamPathTemplate": "/tweet/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
-      "DownstreamPathTemplate": "/tweet",
+      "DownstreamPathTemplate": "/tweet/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -35,9 +35,9 @@
       }
     },
     {
-      "UpstreamPathTemplate": "/search",
+      "UpstreamPathTemplate": "/search/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
-      "DownstreamPathTemplate": "/search",
+      "DownstreamPathTemplate": "/search/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -66,7 +66,7 @@
   ],
   "Aggregates": [
     {
-      "UpstreamPathTemplate": "/test",
+      "UpstreamPathTemplate": "/twitter",
       "RouteKeys": [ "user", "tweet", "search" ]
     }
   ]

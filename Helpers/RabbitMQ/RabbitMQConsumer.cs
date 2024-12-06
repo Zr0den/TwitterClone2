@@ -20,7 +20,7 @@ namespace Helpers.RabbitMQ
             _settings = options.Value;
         }
 
-        public async Task StartListeningAsync()
+        public async Task StartListeningAsync(string queueName = "")
         {
             var factory = new ConnectionFactory
             {
@@ -30,18 +30,19 @@ namespace Helpers.RabbitMQ
                 Password = _settings.Password
             };
 
+            string whichQueue = queueName != "" ? queueName : _settings.QueueName;
             using var connection = await factory.CreateConnectionAsync();
             using var channel = await connection.CreateChannelAsync();
 
             // Ensure the queue exists
             await channel.QueueDeclareAsync(
-                queue: _settings.QueueName,
+                queue: whichQueue,
                 durable: true,
                 exclusive: false,
                 autoDelete: false,
                 arguments: null);
 
-            Console.WriteLine($"[Consumer] Listening to queue: {_settings.QueueName}");
+            Console.WriteLine($"[Consumer] Listening to queue: {whichQueue}");
 
             var consumer = new AsyncEventingBasicConsumer(channel);
             consumer.ReceivedAsync += async (model, ea) =>
@@ -66,7 +67,7 @@ namespace Helpers.RabbitMQ
 
             // Start consuming messages from the queue
             await channel.BasicConsumeAsync(
-                queue: _settings.QueueName,
+                queue: whichQueue,
                 autoAck: false, // Set to false to manually acknowledge messages
                 consumer: consumer);
 

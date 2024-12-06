@@ -9,6 +9,7 @@ http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kube
 
  -- apply --
 kubectl create namespace twitterclone
+kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml"
 kubectl apply -f ./k8s/
 kubectl apply -f ./k8s/ --namespace=twitterclone
 kubectl apply -f k8s/apigateway-deployment.yaml (for enkel)

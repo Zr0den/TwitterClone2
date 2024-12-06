@@ -1,8 +1,14 @@
 using Helpers.RabbitMQ;
 using Polly;
 using Polly.Extensions.Http;
+using Vault;
+using Vault.Model;
+using Vault.Client;
+using SearchApi;
+using Newtonsoft.Json.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration.GetSection("Settings").Get<Settings>();
 
 var circuitBreakerPolicy = Policy<HttpResponseMessage>
     .Handle<HttpRequestException>()
@@ -19,12 +25,30 @@ var circuitBreakerPolicy = Policy<HttpResponseMessage>
         onHalfOpen: () => Console.WriteLine("Circuit breaker is half-open. Testing next request.")
     );
 
-// Register HttpClient with Polly policies
+// Registering HttpClient with Polly policies
 builder.Services.AddHttpClient("ExternalServiceClient")
     .AddPolicyHandler(HttpPolicyExtensions.HandleTransientHttpError() // Retry for transient errors
         .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))))
     .AddPolicyHandler(circuitBreakerPolicy);
 // Add services to the container.
+builder.Services.AddSingleton(
+    (ServiceProvider) =>
+    {
+        VaultConfiguration vaultConfiguration = new VaultConfiguration(config.VaultHostname);
+        VaultClient vaultClient = new VaultClient(vaultConfiguration);
+
+        var authResponse = vaultClient.Auth.UserpassLogin("Vaultuser", new UserpassLoginRequest("Vaultpass"));
+        vaultClient.SetToken(authResponse.ResponseAuth.ClientToken);
+
+        VaultResponse<KvV2ReadResponse> response = vaultClient.Secrets.KvV2Read("secret", "kv");
+        JObject data = (JObject)response.Data.Data;
+
+        Console.WriteLine(data.ToString());
+
+        SecretSettings secretSettings = data.ToObject<SecretSettings>();
+        return secretSettings;
+    }
+);
 // Add RabbitMQ settings from appsettings.json
 builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQ"));
 // Register RabbitMQProducer and RabbitMQConsumer

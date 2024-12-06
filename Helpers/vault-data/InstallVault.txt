@@ -1,0 +1,13 @@
+﻿Use powershell and execute in order:
+
+1:		Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+2:		Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+
+3:		scoop install vault
+
+-----
+After vault has been installed, restart visual studio if open.
+-----
+
+for running use: vault server -dev -dev-root-token-id="my-token"

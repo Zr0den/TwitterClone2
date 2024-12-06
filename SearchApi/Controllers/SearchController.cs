@@ -2,7 +2,9 @@
 using Helpers.RabbitMQ;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using RestSharp;
+using System.Net.Http.Headers;
 using System.Text.Json;
 
 namespace SearchApi.Controllers
@@ -14,21 +16,27 @@ namespace SearchApi.Controllers
         private readonly RabbitMQProducer _producer;
         private readonly RabbitMQConsumer _consumer;
         private SearchService _service;
+        private readonly SecretSettings _secretSettings;
 
-        public SearchController(RabbitMQProducer producer, RabbitMQConsumer consumer, SearchService service)
+        public SearchController(RabbitMQProducer producer, RabbitMQConsumer consumer, SearchService service, SecretSettings secretSettings)
         {
             _producer = producer;
             _consumer = consumer;
             _service = service;
+            _secretSettings = secretSettings;
         }
 
-        [HttpGet("search-users")]
+
+
+        [HttpGet("user")]
         public async Task<IActionResult> SearchUsersAsync([FromQuery] string query)
         {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _secretSettings.TWITTER_SERVICE_TOKEN);
             var requestDetails = new RequestDetails
             {
                 Method = Method.Get,
-                Url = $"http://userapi-url/user/search?query={query}", //TODO
+                Url = $"http://userapi/user/search?query={query}", //TODO
                 ReplyToQueue = "search-api-response-queue"
             };
 

@@ -1,4 +1,5 @@
-﻿using Database.Repositories;
+﻿using Database.Entities;
+using Database.Repositories;
 using Helpers;
 using Helpers.RabbitMQ;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +27,17 @@ namespace UserApi.Controllers
         {
             var users = _userRepository.GetAll();
 
-            var filteredUsers = users.Where(u => u.Name.Contains(query, StringComparison.OrdinalIgnoreCase)).ToList();
+            // var filteredUsers = users.Where(u => u.Name.Contains(query, StringComparison.OrdinalIgnoreCase)).ToList();
+            var filteredUsers = new List<User>();
+            User user = new User()
+            {
+                UserTag = "bodil",
+                Email = "hansbodil",
+                Name = "karl",
+                Password = "1234",
+                Id = 1005,
+            };
+            filteredUsers.Add(user);
             return Ok(filteredUsers);
         }
     }
